@@ -19,7 +19,7 @@
 
 def mdtoc(markdown)
   titles = []
-  lines = markdown.split("\n")
+  lines = markdown.split($/)
   start = nil
 
   # First pass: Scan the Markdown source looking for titles of the
