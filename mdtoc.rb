@@ -26,14 +26,9 @@ def mdtoc(markdown)
   # format: `### Title ###`. Record the line number, header level
   # (number of octothorpes), and text of each matching title.
   lines.each_with_index do |line, line_no|
-    if line.match(/(^#+)\s*(.*?)\s*(#+)$/)
-      pre, text, post = $1, $2, $3
-      level = pre.length
-
-      if post.length == level
-        titles << [line_no, level, text]
-        start ||= line_no
-      end
+    if line.match(/^(\#{1,6})\s+(.+?)\s+\1$/)
+      titles << [line_no, $1.length, $2]
+      start ||= line_no
     end
   end
 
