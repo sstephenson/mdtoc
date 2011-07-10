@@ -47,7 +47,7 @@ def mdtoc(markdown)
       if last_level < level
         section << 1
       else
-        section.pop if last_level > level
+        (last_level - level).times { section.pop }
         section[-1] += 1
       end
     else
