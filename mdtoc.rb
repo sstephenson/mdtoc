@@ -65,10 +65,14 @@ def mdtoc(markdown)
   # Third pass: Iterate over matched titles once more to produce the
   # table of contents. Then insert it immediately above the first
   # matched title.
-  lines[start..0] = titles.map do |(line_no, level, text, section)|
-    name = section.join(".")
-    %(#{" " * (section.length * 3)}* [#{name} #{text}](#section_#{name}))
-  end + [""] if start
+  if start
+    toc = titles.map do |(line_no, level, text, section)|
+      name = section.join(".")
+      %(#{" " * (section.length * 3)}* [#{name} #{text}](#section_#{name}))
+    end + [""]
+
+    lines.insert(start, *toc)
+  end
 
   lines.join("\n")
 end
